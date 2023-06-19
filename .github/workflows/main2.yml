@@ -33,6 +33,7 @@ jobs:
           R -e 'install.packages("stringr")'
           R -e 'install.packages("feasts")'
           R -e 'install.packages("data.table")'
+          R -e 'install.packages("readxl")'
           
       # Run Rscript    
       - name: Modelos
