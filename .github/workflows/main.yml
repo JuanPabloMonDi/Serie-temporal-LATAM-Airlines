@@ -53,7 +53,7 @@ jobs:
           git config --local user.email jmontanod@unal.edu.co
           git add --all
           git commit -am "Prediction of the day"
-          git push
+          git push https://github.com/JuanPabloMonDi/SeriesTemporaisUnicamp.git
         env:
           REPO_KEY: ${{secrets.PredicionesSeries}}
           username: JuanPabloMondi
