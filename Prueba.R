@@ -15,4 +15,4 @@ library(flexdashboard)
 library(knitr)
 library(DT)
 library(yfR)
-library(rugarch
+library(rugarch)
