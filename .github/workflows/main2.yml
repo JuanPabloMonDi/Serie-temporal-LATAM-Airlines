@@ -34,8 +34,8 @@ jobs:
           R -e 'install.packages("feasts")'
           R -e 'install.packages("data.table")'
           R -e 'install.packages("rugarch")'
-          R -e 'install.packages("readr")
-          R -e 'install.packages("tseries")''
+          R -e 'install.packages("readr")'
+          R -e 'install.packages("tseries")'
           R -e 'install.packages("seasonal")'
           R -e 'install.packages("flexdashboard")'
           R -e 'install.packages("knitr")'
