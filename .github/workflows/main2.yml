@@ -18,6 +18,7 @@ jobs:
       - name: Install Packages
         run: |
           sudo apt install libcurl4-openssl-dev
+          R -e 'install.packages("tidyr")'
           R -e 'install.packages("dplyr")'
           R -e 'install.packages("yfR")'
           R -e 'install.packages("shiny")'
@@ -30,10 +31,15 @@ jobs:
           R -e 'install.packages("ggplot2")'
           R -e 'install.packages("stringr")'
           R -e 'install.packages("httr")'
-          R -e 'install.packages("stringr")'
           R -e 'install.packages("feasts")'
           R -e 'install.packages("data.table")'
-          R -e 'install.packages("readxl")'
+          R -e 'install.packages("rugarch")'
+          R -e 'install.packages("readr")
+          R -e 'install.packages("tseries")''
+          R -e 'install.packages("seasonal")'
+          R -e 'install.packages("flexdashboard")'
+          R -e 'install.packages("knitr")'
+          
           
       # Run Rscript    
       - name: Modelos
