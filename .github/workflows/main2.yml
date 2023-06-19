@@ -54,5 +54,5 @@ jobs:
           git commit -am "Prediction of the day"
           git push
         env:
-          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          REPO_KEY: ${{secrets.PredicionesSeries}}
           username: JuanPabloMondi
