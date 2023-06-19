@@ -42,9 +42,9 @@ jobs:
       - name: Commit
         run: |
           git config --local user.name JuanPabloMonDi
-          git config --local user.email "jmontanod@unal.edu.co"
+          git config --local user.email jmontanod@unal.edu.co
           git add --all
-          git commit -am "add Data"
+          git commit -am "Prediction of the day"
           git push
         env:
           REPO_KEY: ${{secrets.GITHUB_TOKEN}}
