@@ -242,4 +242,4 @@ colnames(results)<-colnames
 Predict <- read_csv("Predicoes/Predict.csv") #Este arquivo vai armazenar as predicoes diarias
 Predict <-rbind(Predict,results) #Acrescentamos a predicao
 
-write.csv(Predict,"Predict.csv",row.names = FALSE) #salvamos o arquivo
+write.csv(Predict,"Predicoes/Predict.csv",row.names = FALSE) #salvamos o arquivo
