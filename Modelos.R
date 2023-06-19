@@ -1,6 +1,6 @@
 library(dplyr)
 library(httr)
-library(readxl)
+#library(readxl)
 library(readr)
 library(tsibble)
 library(ggplot2)
@@ -16,7 +16,6 @@ library(knitr)
 library(DT)
 library(yfR)
 library(rugarch)
-setwd("~/Universidad/2023-I Brasil/SeriesTemp/Projeto/TrabalhoFinal")
 source("Funcoes.R")
 nome_acao <- "LTM.SN"#"MSFT.MX"  #"SMSN.IL" "MAT" # Código no Yahoo Finance
 data_ini  <- "2013-01-01" # Data de inicio
