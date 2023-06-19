@@ -21,6 +21,7 @@ jobs:
           R -e 'install.packages("dplyr")'
           R -e 'install.packages("yfR")'
           R -e 'install.packages("shiny")'
+          R -e 'install.packages("writexl")'
           R -e 'install.packages("shinythemes")'
           R -e 'install.packages("DT")'
           R -e 'install.packages("forecast")'
