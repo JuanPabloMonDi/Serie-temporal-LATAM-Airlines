@@ -240,7 +240,7 @@ pospred<-as.numeric(pred_pospandemia$pred)
 posse<-as.numeric(pred_pospandemia$se)
 results<-data.frame(t(c(data,prepred,prese,pospred,posse,valor_real)))
 colnames(results)<-colnames
-Predict <- read_csv("Predict.csv") #Este arquivo vai armazenar as predicoes diarias
+Predict <- read_csv("Predicoes/Predict.csv") #Este arquivo vai armazenar as predicoes diarias
 Predict <-rbind(Predict,results) #Acrescentamos a predicao
 
 write.csv(Predict,"Predict.csv",row.names = FALSE) #salvamos o arquivo
