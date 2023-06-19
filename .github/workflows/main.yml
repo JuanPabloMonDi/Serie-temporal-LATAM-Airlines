@@ -36,7 +36,7 @@ jobs:
           
       # Run Rscript    
       - name: Modelos
-        run: Rscript SeriesTemporaisUnicamp/Modelos.R
+        run: Rscript Modelos.R
         
       # Add new files in folders and commit
       - name: Commit
