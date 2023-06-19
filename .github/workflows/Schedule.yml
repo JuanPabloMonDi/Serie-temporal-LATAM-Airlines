@@ -41,8 +41,8 @@ jobs:
       # Add new files in folders and commit
       - name: Commit
         run: |
-          git config --local user.name github-actions
-          git config --local user.email "actions@github.com"
+          git config --local user.name JuanPabloMonDi
+          git config --local user.email "jmontanod@unal.edu.co"
           git add --all
           git commit -am "add Data"
           git push
