@@ -9,8 +9,12 @@
 
 #https://shiny.posit.co/r/getstarted/shiny-basics/lesson2/
 library(dplyr)
+library(rsconnect)
+#rsconnect::setAccountInfo(name='qglhmj-juan0pablo-montano0diaz',
+#                          token='3D3D75597C7A9A56D2A183B231D14A29',
+#                          secret='wDGqKDeK5VMo3M6bhOR+uGilAhbq2msrZuHFlLc4')
+#library(devtools)
 library(httr)
-library(jsonlite)
 library(readxl)
 library(readr)
 library(tsibble)
@@ -27,7 +31,7 @@ library(DT)
 library(yfR)
 library(shiny)
 library(shinythemes)
-#source("Codigo R.R")
+source("Codigo R.R")
 
 ui <- fluidPage( #shinythemes::themeSelector(), #Para mudar de tema sem correr o código várias vezes
   theme = shinytheme("journal"), #Candidatos, Journal, Sanstone, Yeti e Cosmo
@@ -164,15 +168,15 @@ ui <- fluidPage( #shinythemes::themeSelector(), #Para mudar de tema sem correr o
                                 # ), 
                                  ),
                         tabPanel("Desempenho fora da amostra",
-                                 DT::datatable(cv_pospandemia),
-                                 DT::datatable(cv_results))
+                                 DT::datatable(cvPospandemia),
+                                 DT::datatable(cvPrepandemia))
                       ),
              tabPanel("Predições",
                       p()),
              navbarMenu("Sobre o site web",
                         tabPanel("O trabalho",
                                  p("mi nombre"),
-                                 DT::datatable(cv_results)
+                                 #DT::datatable(cv_results)
                         )
              )
 )
@@ -266,3 +270,4 @@ shinyApp(ui = ui, server = server)
 
 
 #GitHUB access
+#rsconnect::deployApp()
