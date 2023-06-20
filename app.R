@@ -31,7 +31,7 @@ library(DT)
 library(yfR)
 library(shiny)
 library(shinythemes)
-source("Codigo R.R")
+source("Modelos.R")
 
 ui <- fluidPage( #shinythemes::themeSelector(), #Para mudar de tema sem correr o código várias vezes
   theme = shinytheme("journal"), #Candidatos, Journal, Sanstone, Yeti e Cosmo
