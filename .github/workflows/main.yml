@@ -53,7 +53,8 @@ jobs:
           git config --local user.email jmontanod@unal.edu.co
           git add --all
           git commit -am "Prediction of the day"
-          git push origin HEAD:${{ github.ref }}
+          git pull origin HEAD:${{ GITHUB.REF }}
+          git push origin HEAD:${{ GITHUB.REF }}
         env:
           REPO_KEY: ${{secrets.PredicionesSeries}}
           username: JuanPabloMondi
