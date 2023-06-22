@@ -20,4 +20,4 @@ Por exemplo, o dia 23 de junho o modelo preverá o valor para o mesmo dia, utili
 ### Nota: 
 Nas predições algumas datas vão se repetir, a razão disso é pelos feriados do pais da empresa escolhida, nesse caso foram escolhidas as ações da aerolinea LATAM em Chile. 
 
-Por exemplo, os dias 21 e 26 de junho foram feriados em Chile, portanto, o modelo não gerou predições para esses dias, mas forneceu uma nova predição para o ultimo dia que gerou um novo dato.
+Por exemplo, os dias 21 e 26 de junho foram feriados em Chile, portanto, o modelo não gerou predições para esses dias, mas forneceu uma nova predição para o ultimo dia que foi gerado um novo dato.
