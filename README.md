@@ -13,7 +13,7 @@ O repositório tem os seguintes arquivos
 
 ## Sobre as predições.
 
-De tercas a sabados, o código vai ser executado uma vez por dia às 23:30 (Hora Brasilia). O modelo gera uma predição sem contar a ultima data da base de dados. A ideia é comparar esse valor com nossa predição.
+De tercas a sabados, o código vai ser executado uma vez por dia às 23:30 (Hora Brasilia). O modelo gera uma predição sem levar em conta a ultima data da base de dados. A ideia é comparar esse valor com nossa predição.
 
 Por exemplo, o dia 23 de junho o modelo preverá o valor para o mesmo dia, utilizando os dados até o día 22 de junho.
 
