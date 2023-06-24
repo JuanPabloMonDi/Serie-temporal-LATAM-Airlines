@@ -10,9 +10,9 @@
 #https://shiny.posit.co/r/getstarted/shiny-basics/lesson2/
 library(dplyr)
 library(rsconnect)
-#rsconnect::setAccountInfo(name='qglhmj-juan0pablo-montano0diaz',
-#                          token='3D3D75597C7A9A56D2A183B231D14A29',
-#                          secret='wDGqKDeK5VMo3M6bhOR+uGilAhbq2msrZuHFlLc4')
+rsconnect::setAccountInfo(name='qglhmj-juan0pablo-montano0diaz',
+                          token='3D3D75597C7A9A56D2A183B231D14A29',
+                          secret='wDGqKDeK5VMo3M6bhOR+uGilAhbq2msrZuHFlLc4')
 #library(devtools)
 library(httr)
 library(readxl)
@@ -25,19 +25,22 @@ library(data.table)
 library(fpp3)
 library(seasonal)
 library(stringr)
+library(shinydashboard)
 library(flexdashboard)
 library(knitr)
 library(DT)
 library(yfR)
 library(shiny)
 library(shinythemes)
-source("Modelos.R")
+source("CodigoSemPredicoes.R")
+
+
 
 ui <- fluidPage( #shinythemes::themeSelector(), #Para mudar de tema sem correr o código várias vezes
   theme = shinytheme("journal"), #Candidatos, Journal, Sanstone, Yeti e Cosmo
   #navlistPanel(
   navbarPage(
-    "MENU!",
+    "Voos LATAM",
              tabPanel("Introdução",
                       # Application title
                       titlePanel("Series Temporais- Trabalho final"),
@@ -88,92 +91,105 @@ ui <- fluidPage( #shinythemes::themeSelector(), #Para mudar de tema sem correr o
                     
                                   )
                       ),
-             tabPanel("Analise Descriptivo dos Dados",
-                      helpText("AYUDA"),
-                      h1("Analise descriptivo dos dados",align="center"),
-                      h2("Considerando a pandemia na serie"),
-                      p("Texto introductorio donde hablo de que la serie puede ser muy voltail y dar modelos malos considerando la pandemia"),
-                     
-                       tabsetPanel(
-                        tabPanel("Autocorrelação",
-                                 sliderInput(inputId = "Lags",
-                                             label = "Numero de lags:",
-                                             min = 1,
-                                             max = 50,
-                                             value = 30),
-                                 plotOutput("autocorrelacao")),
-                        tabPanel("Autocorrelação parcial",
-                                 sliderInput(inputId = "LagsP",
-                                             label = "Numero de lags:",
-                                             min = 1,
-                                             max = 50,
-                                             value = 30),
-                                 plotOutput("par_autocorrelacao")),
-                        tabPanel("Decomposicao",
-                                 plotOutput("Decomposicao1")),
-                        tabPanel("Ljung-Box",
-                                 sliderInput(inputId = 'BoxLags',label="Lags para o teste", min=10, max=100, value=15),
-                                 verbatimTextOutput("Testes")),
-                        tabPanel("Estacionaridade",
-                                 sliderInput(inputId = 'DickeyLags',label="Lags para o teste", min=10, max=100, value=15),
-                                 verbatimTextOutput("Dickey")),
-                        
-                        ),
-                      h2("Sem considerar a pandemia na serie"),
-                      p("Aqui escribo de las ventas de no considerar la pandemia en el modeleja de la serie"),
-                      tabsetPanel(
-                        tabPanel("Autocorrelação",
-                                 sliderInput(inputId = "Lags",
-                                             label = "Numero de lags:",
-                                             min = 1,
-                                             max = 50,
-                                             value = 30),
-                                 plotOutput("autocorrelacaoPande")),
-                        tabPanel("Autocorrelação parcial",
-                                 sliderInput(inputId = "LagsP",
-                                             label = "Numero de lags:",
-                                             min = 1,
-                                             max = 50,
-                                             value = 30),
-                                 plotOutput("par_autocorrelacaoPande")),
-                        tabPanel("Decomposicao",
-                                 plotOutput("Decomposicao1Pande")),
-                        tabPanel("Ljung-Box",
-                                 sliderInput(inputId = 'BoxLags',label="Lags para o teste", min=10, max=100, value=15),
-                                 verbatimTextOutput("TestesPande")),
-                        tabPanel("Estacionaridade",
-                                 sliderInput(inputId = 'DickeyLags',label="Lags para o teste", min=10, max=100, value=15),
-                                 verbatimTextOutput("DickeyPande")),
-                        
-                      ),
-                      sidebarPanel(position="right",
-                        p("Aqui van los deslizadores"),
-                        p("Aqui van los deslizadores"),
-                         p("Aqui van los deslizadores"),
-                        p("Aqui van los deslizadores"),
-                        p("Aqui van los deslizadores"),
-                        sliderInput(inputId = '1',label="Lags para o teste", min=10, max=100, value=15),
-                        sliderInput(inputId = '2',label="Lags para o teste", min=10, max=100, value=15),
-                        
-                        ),
-                      ),# esse daqui fecha a janela de analise descritivo
+    tabPanel("Análise Descriptivo",
+             # SidebarLayout para dividir a pagina em duas partes
+             sidebarLayout( position = "left",
+                            sidebarPanel( h2("Análise Descriptivo dos dados",  align = "left"),
+                                          h3("Escribir ventajas y desventajas de incluir o no la pandemia"),
+                                          radioButtons(inputId = "SemPandemia" , 
+                                                       label = "Incluir a pandemia?",
+                                                       choices = c("Sem pandemia", "Com pandemia")),
+                                                       sliderInput(inputId = "Lags",
+                                                                   label = "Numero de lags:",
+                                                                   min = 1,
+                                                                   max = 50,
+                                                                   value = 30),
+                                          fluid=TRUE,
+                                          width=3,
+                                          ),
+                            mainPanel("Pagina",
+                                      fluid=TRUE,
+                                      width=9,
+                                      tabsetPanel(
+                                        tabPanel("Autocorrelação",
+                                                 plotOutput("Analise")),
+                                        tabPanel("Autocorrelação parcial",
+                                                 plotOutput("par_autocorrelacao")),
+                                        tabPanel("Decomposicao",
+                                                 plotOutput("Decomposicao1")),
+                                        tabPanel("Ljung-Box",
+                                                verbatimTextOutput("Testes")),
+                                        tabPanel("Estacionaridade",
+                                                 verbatimTextOutput("Dickey")),
+                                        
+                                      ), #Fecha o tabsetPanel
+                            ), #Fecha o main Panel
+    ), #Fecha o sidelayout
+    ), #Fechar a secção de análise descriptivo
+    
              tabPanel("Modelos",
-                      p()),
-             navbarMenu("Availação dos modelos",
-                        tabPanel("A partir dos residuais",
-                                 p("texto de prueba"),
-                                 #splitLayout(
-                                #   DT::datatable(cv_pospandemia),
-                                #   DT::datatable(cv_results))
-                                # ), 
-                                 ),
-                        tabPanel("Desempenho fora da amostra",
-                                 DT::datatable(cvPospandemia),
-                                 DT::datatable(cvPrepandemia))
+                      sidebarLayout( position = "left",
+                                     sidebarPanel( h2("Análise Descriptivo dos dados",  align = "left"),
+                                                   h3("Escribir ventajas y desventajas de incluir o no la pandemia"),
+                                                   radioButtons(inputId = "Modelo" , 
+                                                                label = "Seleccionar modelo",
+                                                                choices = c("1.MA(1)"=1, 
+                                                                            "2.ARMA(1,1)"=2,
+                                                                            "3.ARMA(2,1)"=3,
+                                                                            "4.IMA(1,2)"=4,
+                                                                            "5.ARIMA(1,1,1)"=5,
+                                                                            "6.MA(1)-GARCH(1,1)"=6,
+                                                                            "7.MA(1)-GARCH(3,2)"=7,
+                                                                            "8.ARIMAX(1,1,1)"=8,
+                                                                            "9.ARIMAX(7,1,7)"=9,
+                                                                            "10.ARMAX(7,4)"=10,
+                                                                            "11.ARMA(7,4)"=11,
+                                                                            "12.ARMAX(1,1)-GARCH(1,1)"=12,
+                                                                            "13.ARMAX(7,1,4)-GARCH(2,2)"=13
+                                                                            )),
+                                                   fluid=TRUE,
+                                                   width=3,
+                                     ),
+                                     
+                      mainPanel(fluidPage(
+                        wellPanel(fluidRow(
+                          column(
+                            width = 12,
+                            align = "center",
+                            h3("Control Panel"),
+                            #verbatimTextOutput("ModeloAcf")
+                            column(width=6,plotOutput("Modeloqqline")),
+                            column(width = 5, plotOutput("Dist")),
+                            #column(width = 3, offset = 1, sliderInput('sampleSize','Sample Size', min = 1, max = 100, value = min(1, 100), step = 500,round = 0)),
+                            #column(width = 1, offset = 1, actionButton("readButton", "Read Data!"))
+                          )
+                        )),
+                        hr(),
+                        fluidRow(
+                        column(
+                          width = 7,
+                          plotOutput('Modeloacf', height = 300),
+                        ),
+                        column(width = 5, plotOutput('otros', height = 400))
                       ),
+                      fluidRow(
+                        column(width=6,
+                               verbatimTextOutput("TestModelo")),
+                        column(width=6,
+                               verbatimTextOutput("ModeloResumo"))
+                      )
+                      
+                      ))),
+                      ), #Fecha modelos
+    tabPanel("Desempenho fora da amostra",
+             DT::datatable(cvPrepandemia),
+             DT::datatable(cvPospandemia)),
+             
+                      
              tabPanel("Predições",
-                      p()),
-             navbarMenu("Sobre o site web",
+                      p(),
+                      DT::datatable(Predict)),
+    navbarMenu("Sobre o site web",
                         tabPanel("O trabalho",
                                  p("mi nombre"),
                                  #DT::datatable(cv_results)
@@ -181,9 +197,11 @@ ui <- fluidPage( #shinythemes::themeSelector(), #Para mudar de tema sem correr o
              )
 )
 )
-# Define server logic required to draw a histogram
-Box.test(retornos^2, type = "Ljung-Box", lag = 10)
+
 server <- function(input, output) {
+  
+
+  
     output$Price<- renderPlot({
       data_ini  <- input$datasRango[1] # Data de inicio
       data_fim  <- input$datasRango[2] # Data de fim
@@ -208,66 +226,147 @@ server <- function(input, output) {
       
     })
     
-    output$autocorrelacao<- renderPlot({
-      p1<-ggAcf(retornos_c, lag.max = input$Lags)+ggtitle("Autocorrelação da série")
-      p2<-ggAcf(retornos_c^2, lag.max = input$Lags)+ggtitle("Autocorrelação dos cuadrados série")
-      multiplot(p1,p2,cols=2)
+    #Grafico de autocorrelação
+    output$Analise<- renderPlot({
+      if(as.character(input$SemPandemia)=="Com pandemia"){
+        p1<-ggAcf(retornos_c, lag.max = input$Lags)+ggtitle("Autocorrelação da série com pandemia")
+        p2<-ggAcf(retornos_c^2, lag.max = input$Lags)+ggtitle("Autocorrelação dos cuadrados série com pandemia")
+        multiplot(p1,p2,cols=2)} else{
+          p1<-ggAcf(retornos_c_antes_pandemia, lag.max = input$Lags)+ggtitle("Autocorrelação sem pandemia")
+          p2<-ggAcf(retornos_c_antes_pandemia^2, lag.max = input$Lags)+ggtitle("Autocorrelação dos cuadrados sem pandemia")
+          multiplot(p1,p2,cols=2)} 
     })
-    output$autocorrelacaoPande<- renderPlot({
-      p1<-ggAcf(retornos_c_antes_pandemia, lag.max = input$Lags)+ggtitle("Autocorrelação sem pandemia")
-      p2<-ggAcf(retornos_c_antes_pandemia^2, lag.max = input$Lags)+ggtitle("Autocorrelação dos cuadrados sem pandemia")
-      multiplot(p1,p2,cols=2)
-    })
+    #Grafico de autocorrelações parciales
     output$par_autocorrelacao<- renderPlot({
-      p1<-ggPacf(retornos_c, lag.max = input$LagsP)+ggtitle("Autocorrelação parcial sem pandemia")
-      p2<-ggPacf(retornos_c^2, lag.max = input$LagsP)+ggtitle("Autocorrelação parcial dos cuadrados sem pandemia")
-      multiplot(p1,p2,cols=2)
+      if(as.character(input$SemPandemia)=="Com pandemia"){
+      p1<-ggPacf(retornos_c, lag.max = input$Lags)+ggtitle("Autocorrelação parcial com pandemia")
+      p2<-ggPacf(retornos_c^2, lag.max = input$Lags)+ggtitle("Autocorrelação parcial dos cuadrados com pandemia")
+      multiplot(p1,p2,cols=2)}else{
+        p1<-ggPacf(retornos_c_antes_pandemia, lag.max = input$Lags)+ggtitle("Autocorrelação parcial da série sem pandemia")
+        p2<-ggPacf(retornos_c_antes_pandemia^2, lag.max = input$Lags)+ggtitle("Autocorrelação parcial dos cuadrados da série sem pandemia")
+        multiplot(p1,p2,cols=2)
+        }
     })
-    output$par_autocorrelacaoPande<- renderPlot({
-      p1<-ggPacf(retornos_c_antes_pandemia, lag.max = input$LagsP)+ggtitle("Autocorrelação parcial da série sem pandemia")
-      p2<-ggPacf(retornos_c_antes_pandemia^2, lag.max = input$LagsP)+ggtitle("Autocorrelação parcial dos cuadrados da série sem pandemia")
-      multiplot(p1,p2,cols=2)
-    })
+
+    
+    #Grafico da descomposição da série
     output$Decomposicao1<- renderPlot({
+      if(as.character(input$SemPandemia)=="Com pandemia"){
       p1<-drop_na(data.frame(b$trend))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b$trend)))),y=b.trend))+ylab("Tendência")+xlab("")
       p2<-drop_na(data.frame(b$seasonal))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b$seasonal)))),y=b.seasonal))+ylab("Sazonalidade")+xlab("")
       p3<-drop_na(data.frame(b$random))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b$random)))),y=b.random))+ylab("Aleatorio")+xlab("Tempo")
-      
-      multiplot(p1,p2,p3,cols=1)
+      multiplot(p1,p2,p3,cols=1)}else{
+        p1<-drop_na(data.frame(b2$trend))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b2$trend)))),y=b2.trend))+ylab("Tendência")+xlab("")
+        p2<-drop_na(data.frame(b2$seasonal))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b2$seasonal)))),y=b2.seasonal))+ylab("Sazonalidade")+xlab("")
+        p3<-drop_na(data.frame(b2$random))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b2$random)))),y=b2.random))+ylab("Aleatorio")+xlab("Tempo")
+        multiplot(p1,p2,p3,cols=1)
+      }
     })
-    output$Decomposicao1Pande<- renderPlot({
-      p1<-drop_na(data.frame(b2$trend))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b2$trend)))),y=b2.trend))+ylab("Tendência")+xlab("")
-      p2<-drop_na(data.frame(b2$seasonal))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b2$seasonal)))),y=b2.seasonal))+ylab("Sazonalidade")+xlab("")
-      p3<-drop_na(data.frame(b2$random))|> ggplot()+geom_line(aes(x=seq_len(nrow(drop_na(data.frame(b2$random)))),y=b2.random))+ylab("Aleatorio")+xlab("Tempo")
-      
-      multiplot(p1,p2,p3,cols=1)
-    })
+    
+    #Testes de Jung- Box e Box- Pierce
     output$Testes<- renderPrint({
-      Box<-Box.test(retornos_c,"Ljung-Box",lag=input$BoxLags)
-      Box2<-Box.test(retornos_c,"Box-Pierce",lag=input$BoxLags)
+      if(as.character(input$SemPandemia)=="Com pandemia"){
+      Box<-Box.test(retornos_c,"Ljung-Box",lag=input$Lags)
+      Box2<-Box.test(retornos_c,"Box-Pierce",lag=input$Lags)
       print(Box)
-      print(Box2)})
-    
-    output$TestesPande<- renderPrint({
-      Box<-Box.test(retornos_c_antes_pandemia,"Ljung-Box",lag=input$BoxLags)
-      Box2<-Box.test(retornos_c_antes_pandemia,"Box-Pierce",lag=input$BoxLags)
-      print(Box)
-      print(Box2)})
-    
-    output$Dickey<- renderPrint({
-      test_estacionaridade<-adf.test(retornos_c,alternative="stationary",k=input$DickeyLags)
-      print(test_estacionaridade)
-    })
-    output$DickeyPande<- renderPrint({
-      test_estacionaridade<-adf.test(retornos_c_antes_pandemia,alternative="stationary",k=input$DickeyLags)
-      print(test_estacionaridade)
-    })
-  
-}
+      print(Box2)}else{
+        Box<-Box.test(retornos_c_antes_pandemia,"Ljung-Box",lag=input$Lags)
+        Box2<-Box.test(retornos_c_antes_pandemia,"Box-Pierce",lag=input$Lags)
+        print(Box)
+        print(Box2)
+      }}
+      )
 
+    #Test de Dickey Fuller 
+    output$Dickey<- renderPrint({
+      if(as.character(input$SemPandemia)=="Com pandemia"){
+      test_estacionaridade<-adf.test(retornos_c,alternative="stationary",k=input$Lags)
+      print(test_estacionaridade)}else{
+        test_estacionaridade<-adf.test(retornos_c_antes_pandemia,alternative="stationary",k=input$Lags)
+        print(test_estacionaridade)
+      }
+    })
+    #Resultados do modelo
+    output$ModeloResumo<-renderPrint({
+      mod<-modelos[[as.numeric(input$Modelo)]]
+      print(mod)
+    })
+    
+    #acf dos residuais do modelo
+    output$Modeloacf<-renderPlot({
+      mod<-modelos[[as.numeric(input$Modelo)]]
+      if (class(mod)=="uGARCHfit"){
+        par(mfrow=c(1,2))
+        plot(mod,which=10)
+        plot(mod,which=11)
+        par(mfrow=c(1,1))
+      }
+      if (class(mod)=="Arima"){
+        p1<-ggAcf(mod$residuals)+ggtitle("Autocorrelação dos residuos do modelo")
+        p2<-ggAcf(mod$residuals^2)+ggtitle("Autocorrelação dos quadrados dos residuos do modelo")
+        multiplot(p1,p2,cols = 2)
+      }
+      })
+    
+    
+    #Qqline dos residuais dos modelo
+      output$Modeloqqline<-renderPlot({
+        mod<-modelos[[as.numeric(input$Modelo)]]
+        if (class(mod)=="uGARCHfit"){
+          plot(mod,which=9)
+        }
+        if (class(mod)=="Arima"){
+          qqnorm(mod$residuals,col="lightblue4")
+          qqline(mod$residuals)
+        }
+})
+      
+      #Histograma dos residuais
+      output$Dist<- renderPlot({
+        mod<-modelos[[as.numeric(input$Modelo)]]
+        if (class(mod)=="uGARCHfit"){
+          plot(mod,which=8)
+        }
+        if (class(mod)=="Arima"){
+          hist(mod$residuals, freq = FALSE)
+          lines(density(rnorm(100000,0,sqrt(mod$sigma2))),lw=3)
+        }
+      })
+      #Test de JungBox dos residuais
+      output$TestModelo<- renderPrint({
+        mod<-modelos[[as.numeric(input$Modelo)]]
+        if (class(mod)=="uGARCHfit"){
+          Box<-Box.test(mod@fit$residuals/mod@fit$sigma,type="Ljung-Box")
+          Box2<-Box.test(mod@fit$residuals/mod@fit$sigma,type="Box-Pierce")
+          print(Box)
+          print(Box2)
+        }
+        if (class(mod)=="Arima"){
+          Box<-Box.test(mod$residuals,type="Ljung-Box")
+          Box2<-Box.test(mod$residuals, type="Box-Pierce")
+          print(Box)
+          print(Box2)
+        }
+      })
+      output$otros<- renderPlot({
+        mod<-modelos[[as.numeric(input$Modelo)]]
+        if (class(mod)=="uGARCHfit"){
+          plot(mod,which=2)
+        }
+        if (class(mod)=="Arima"){
+          plot(mod)
+        }
+      })
+      
+      
+     
+}
 # Run the application 
 shinyApp(ui = ui, server = server)
 
 
 #GitHUB access
-#rsconnect::deployApp()
+#rsconnect::deployApp("Universidad/2023-I Brasil/SeriesTemp/Projeto/TrabalhoFinal")
+#options(rsconnect.max.bundle.size = 3145728000)
+#runGitHub( "SeriesTemporaisUnicamp", "JuanPabloMonDi")
+
