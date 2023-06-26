@@ -224,8 +224,8 @@ modelos[[13]]<-mod13
 #não precisamos na validação cruzada na app do shiny
   #write.csv(cv_pospandemia,"cvPospandemia.csv",row.names = FALSE) #salvamos o arquivo
   #write.csv(cv_results,"cvPrepandemia.csv",row.names = FALSE) #salvamos o arquivo
-cvPospandemia<- read.csv("cvPospandemia.csv",sep = " ")
-cvPrepandemia <- read.csv("cvPrepandemia.csv",sep=" ")
+cvPospandemia<- read.csv("Cross-Validation/cvPospandemia.csv",sep = " ")
+cvPrepandemia <- read.csv("Cross-Validation/cvPrepandemia.csv",sep=" ")
 
 
 #Vamos fazer as predicoes para o proximo dia dos melhores modelos para antes de pandemia e depois da pandemia
