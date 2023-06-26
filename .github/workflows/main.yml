@@ -2,7 +2,7 @@ name: LATAM yahoo predictions
 
 on:
   schedule:
-    - cron: "30 2 * * 1-5" # Every hour
+    - cron: "30 2 * * 2-6" # Every hour
 
 jobs:
   scrape:
