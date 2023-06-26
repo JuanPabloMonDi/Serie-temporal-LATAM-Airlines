@@ -1,6 +1,6 @@
 library(dplyr)
 library(httr)
-#library(readxl)
+library(readxl)
 library(readr)
 library(tsibble)
 library(ggplot2)
@@ -16,6 +16,7 @@ library(knitr)
 library(DT)
 library(yfR)
 library(rugarch)
+#setwd("~/Universidad/2023-I Brasil/SeriesTemp/Projeto/TrabalhoFinal")
 source("Funcoes.R")
 nome_acao <- "LTM.SN"#"MSFT.MX"  #"SMSN.IL" "MAT" # Código no Yahoo Finance
 data_ini  <- "2013-01-01" # Data de inicio
@@ -58,7 +59,7 @@ retornos_c_antes_pandemia<-retornos_c_antes_pandemia[retornos_c_antes_pandemia<=
 #a seguir, código do cada um dos modelos feitos, mas só vão ficar os melhores modelos na app
 
 
-#mod1<-arima(retornos_c_antes_pandemia,order=c(0,0,1))
+mod1<-arima(retornos_c_antes_pandemia,order=c(0,0,1))
 #acf(mod1$residuals)
 #pacf(mod1$residuals)
 #plot(mod1)
@@ -68,7 +69,7 @@ retornos_c_antes_pandemia<-retornos_c_antes_pandemia[retornos_c_antes_pandemia<=
 #Box.test(mod1$residuals) #nao temos que rejeitar a hipotese nula
 
 
-#mod2<-arima(retornos_c_antes_pandemia,order=c(1,0,1))
+mod2<-arima(retornos_c_antes_pandemia,order=c(1,0,1))
 #acf(mod2$residuals)
 #pacf(mod2$residuals)
 #plot(mod2)
@@ -77,7 +78,7 @@ retornos_c_antes_pandemia<-retornos_c_antes_pandemia[retornos_c_antes_pandemia<=
 #hist(mod2$residuals)
 #Box.test(mod2$residuals) 
 
-#mod3<-arima(retornos_c_antes_pandemia,order=c(2,0,1))
+mod3<-arima(retornos_c_antes_pandemia,order=c(2,0,1))
 #acf(mod3$residuals)
 #pacf(mod3$residuals)
 #plot(mod3)
@@ -86,7 +87,7 @@ retornos_c_antes_pandemia<-retornos_c_antes_pandemia[retornos_c_antes_pandemia<=
 #hist(mod3$residuals)
 #Box.test(mod3$residuals) 
 
-#mod4<-arima(retornos_c_antes_pandemia,order=c(0,1,2))
+mod4<-arima(retornos_c_antes_pandemia,order=c(0,1,2))
 
 #acf(mod4$residuals)
 #pacf(mod4$residuals)
@@ -96,7 +97,7 @@ retornos_c_antes_pandemia<-retornos_c_antes_pandemia[retornos_c_antes_pandemia<=
 #hist(mod4$residuals)
 #Box.test(mod4$residuals) 
 
-#mod5<-arima(retornos_c_antes_pandemia,order=c(1,1,1))
+mod5<-arima(retornos_c_antes_pandemia,order=c(1,1,1))
 #acf(mod5$residuals)
 #pacf(mod5$residuals)
 #plot(mod5)
@@ -111,11 +112,11 @@ retornos_c_antes_pandemia<-retornos_c_antes_pandemia[retornos_c_antes_pandemia<=
 #variancia constante, normalidade
 #Diagnostico
 
-#mod6spec<- ugarchspec(mean.model=list(armaOrder=c(0,1),include.mean=FALSE),
-#                      variance.model = list(model="sGARCH", garchOrder=c(1,1)),
-#                      distribution.model = "std") 
+mod6spec<- ugarchspec(mean.model=list(armaOrder=c(0,1),include.mean=FALSE),
+                      variance.model = list(model="sGARCH", garchOrder=c(1,1)),
+                      distribution.model = "std") 
 
-#mod6<-ugarchfit(mod6spec,retornos_c_antes_pandemia,solver="hybrid")
+mod6<-ugarchfit(mod6spec,retornos_c_antes_pandemia,solver="hybrid")
 #acf(mod6@fit$residuals)
 #acf(mod6@fit$residuals^2)
 #qqnorm(mod6@fit$residuals/mod6@fit$sigma)
@@ -132,12 +133,12 @@ mod7<-ugarchfit(mod7spec,retornos_c_antes_pandemia,solver="hybrid")
 #Todos os modelos arima tiveram um comportamiento semelhante nos
 #Diagnostico dos residuais feito para o modelo 7
 #o modelo que teve melhor desempenho na validação cruzada
-acf(mod7@fit$residuals)
-acf(mod7@fit$residuals^2)
-qqnorm(mod7@fit$residuals/mod7@fit$sigma)
-qqline(mod7@fit$residuals/mod7@fit$sigma)
-ggplot(data.table(res=as.numeric(mod7@fit$residuals)))+
-  geom_histogram(aes(x=res),colour="white",fill="black")
+#acf(mod7@fit$residuals)
+#acf(mod7@fit$residuals^2)
+#qqnorm(mod7@fit$residuals/mod7@fit$sigma)
+#qqline(mod7@fit$residuals/mod7@fit$sigma)
+#ggplot(data.table(res=as.numeric(mod7@fit$residuals)))+
+#  geom_histogram(aes(x=res),colour="white",fill="black")
 
 
 #Agora, considerando a pandemia
@@ -147,51 +148,51 @@ mod8<-arima(precos1$retornos_c,
             xreg=precos1$depois_da_pandemia,
             include.mean = FALSE)
 
-#mod9<-arima(precos1$retornos_c, 
-#            order = c(7,1,7), 
-#            xreg=precos1$depois_da_pandemia,
-#            include.mean = FALSE)
+mod9<-arima(precos1$retornos_c, 
+            order = c(7,1,7), 
+            xreg=precos1$depois_da_pandemia,
+            include.mean = FALSE)
 
-#mod10<-arima(precos1$retornos_c, 
-#             order = c(7,0,4), 
-#             xreg=precos1$depois_da_pandemia,
-#             include.mean = FALSE)
-#mod11<-arima(precos1$retornos_c, 
-#             order = c(7,0,4),
-#             include.mean = FALSE)
-#mod12spec<-ugarchspec(mean.model = list(armaOrder = c(1, 1), include.mean = FALSE),
-#                  variance.model = list(model = 'sGARCH', garchOrder = c(1, 1),external.regressors=matrix(precos1$depois_da_pandemia)),
-#                  distribution.model = 'sstd')
+mod10<-arima(precos1$retornos_c, 
+             order = c(7,0,4), 
+             xreg=precos1$depois_da_pandemia,
+             include.mean = FALSE)
+mod11<-arima(precos1$retornos_c, 
+             order = c(7,0,4),
+             include.mean = FALSE)
+mod12spec<-ugarchspec(mean.model = list(armaOrder = c(1, 1), include.mean = FALSE),
+                  variance.model = list(model = 'sGARCH', garchOrder = c(1, 1),external.regressors=matrix(precos1$depois_da_pandemia)),
+                  distribution.model = 'sstd')
 
-#mod12<-ugarchfit(mod12spec,precos1$retornos_c,solver="hybrid")
+mod12<-ugarchfit(mod12spec,precos1$retornos_c,solver="hybrid")
 #qqnorm(mod12@fit$residuals/mod12@fit$sigma)
 #qqline(mod12@fit$residuals/mod12@fit$sigma)
 
 
 
-#mod13spec<-ugarchspec(mean.model = list(armaOrder = c(7, 4), include.mean = FALSE),
-#                 variance.model = list(model = 'sGARCH', garchOrder = c(2, 2),external.regressors=matrix(precos1$depois_da_pandemia)),
-#                 distribution.model = 'sstd')
+mod13spec<-ugarchspec(mean.model = list(armaOrder = c(7, 4), include.mean = FALSE),
+                 variance.model = list(model = 'sGARCH', garchOrder = c(2, 2),external.regressors=matrix(precos1$depois_da_pandemia)),
+                 distribution.model = 'sstd')
 
-#mod13<-ugarchfit(mod13spec,diff(precos1$retornos_c),solver="hybrid")
+mod13<-ugarchfit(mod13spec,diff(precos1$retornos_c),solver="hybrid")
 #qqnorm(mod13@fit$residuals/mod13@fit$sigma)
 #qqline(mod13@fit$residuals/mod13@fit$sigma)
 
 #Agora, vamos fazer a validação cruzada
-#modelos<-c()
-#modelos[[1]]<-mod1
-#modelos[[2]]<-mod2
-#modelos[[3]]<-mod3
-#modelos[[4]]<-mod4
-#modelos[[5]]<-mod5
-#modelos[[6]]<-mod6
-#modelos[[7]]<-mod7
-#modelos[[8]]<-mod8
-#modelos[[9]]<-mod9
-#modelos[[10]]<-mod10
-#modelos[[11]]<-mod11
-#modelos[[12]]<-mod12
-#modelos[[13]]<-mod13
+modelos<-c()
+modelos[[1]]<-mod1
+modelos[[2]]<-mod2
+modelos[[3]]<-mod3
+modelos[[4]]<-mod4
+modelos[[5]]<-mod5
+modelos[[6]]<-mod6
+modelos[[7]]<-mod7
+modelos[[8]]<-mod8
+modelos[[9]]<-mod9
+modelos[[10]]<-mod10
+modelos[[11]]<-mod11
+modelos[[12]]<-mod12
+modelos[[13]]<-mod13
 #cv_results<-data.frame()
 
 #Validação cruzada para os modelos antes da pandemia
@@ -223,7 +224,8 @@ mod8<-arima(precos1$retornos_c,
 #não precisamos na validação cruzada na app do shiny
   #write.csv(cv_pospandemia,"cvPospandemia.csv",row.names = FALSE) #salvamos o arquivo
   #write.csv(cv_results,"cvPrepandemia.csv",row.names = FALSE) #salvamos o arquivo
-
+cvPospandemia<- read_csv("cvPospandemia.csv")
+cvPrepandemia <- read_csv("cvPrepandemia.csv")
 
 
 #Vamos fazer as predicoes para o proximo dia dos melhores modelos para antes de pandemia e depois da pandemia
@@ -240,6 +242,6 @@ posse<-as.numeric(pred_pospandemia$se)
 results<-data.frame(t(c(data,prepred,prese,pospred,posse,valor_real)))
 colnames(results)<-colnames
 Predict <- read_csv("Predict.csv") #Este arquivo vai armazenar as predicoes diarias
-Predict <-rbind(Predict,results) #Acrescentamos a predicao
+#Predict <-rbind(Predict,results) #Acrescentamos a predicao
 
-write.csv(Predict,"Predict.csv",row.names = FALSE) #salvamos o arquivo
+#write.csv(Predict,"Predict.csv",row.names = FALSE) #salvamos o arquivo
