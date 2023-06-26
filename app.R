@@ -10,6 +10,7 @@
 #https://shiny.posit.co/r/getstarted/shiny-basics/lesson2/
 library(dplyr)
 library(rsconnect)
+
 #library(devtools)
 library(httr)
 library(readxl)
@@ -318,17 +319,14 @@ ui <- fluidPage(title="Trabalho Juan Pablo Montaño",
                              p("Esse site web trata-se do trabalho final da disciplina ME607- Series Temporais da
                                Universidade Estadual de Campinas (UNICAMP) no primer semestre do ano 2023. O aluno responsável desse trabalho
                                é Juan Pablo Montaño, com RA:241656.",
-                               style = "font-family: 'Bahnschrift'; font-si20pt;color:'black'")),
+                               style = "font-family: 'Bahnschrift'; font-si20pt;color:'black'"),
                                p("É importante ressaltar que todas as informações e análises aqui apresentadas são estritamente para fins acadêmicos
                                e não devem ser interpretadas como recomendações de investimento ou análise financeira. Da mesma forma, os códigos e
                                modelos apresentados não buscam comercializar nem perjudicar à companhia aerea LATAM.",
-                                 style = "font-family: 'Bahnschrift'; font-si20pt;color:'black'"))),
+                                 style = "font-family: 'Bahnschrift'; font-si20pt;color:'black'")),
                       column(width = 6,
                              img(src = "UNICAMP_logo.png", height=140,width=160, align="right"),
                              ))
-             ,
-                                 
-                        
              )
 )
 )
@@ -536,7 +534,7 @@ shinyApp(ui = ui, server = server)
 
 
 #GitHUB access
-#rsconnect::deployApp("Universidad/2023-I Brasil/SeriesTemp/Projeto/TrabalhoFinal")
+#rsconnect::deployApp()
 #options(rsconnect.max.bundle.size = 3145728000)
 #runGitHub( "SeriesTemporaisUnicamp", "JuanPabloMonDi")
 
