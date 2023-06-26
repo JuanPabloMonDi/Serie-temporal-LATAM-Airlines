@@ -10,9 +10,6 @@
 #https://shiny.posit.co/r/getstarted/shiny-basics/lesson2/
 library(dplyr)
 library(rsconnect)
-rsconnect::setAccountInfo(name='qglhmj-juan0pablo-montano0diaz',
-                          token='3D3D75597C7A9A56D2A183B231D14A29',
-                          secret='wDGqKDeK5VMo3M6bhOR+uGilAhbq2msrZuHFlLc4')
 #library(devtools)
 library(httr)
 library(readxl)
