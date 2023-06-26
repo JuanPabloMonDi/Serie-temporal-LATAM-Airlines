@@ -18,15 +18,15 @@ library(yfR)
 library(rugarch)
 #setwd("~/Universidad/2023-I Brasil/SeriesTemp/Projeto/TrabalhoFinal")
 source("Funcoes.R")
-source("Predicoes.R")
+source("Modelos.R")
 
 
 #Esse código foi rodado antes da entrega para escolher o melhor modelo,
 #não precisamos na validação cruzada na app do shiny
   #write.csv(cv_pospandemia,"cvPospandemia.csv",row.names = FALSE) #salvamos o arquivo
   #write.csv(cv_results,"cvPrepandemia.csv",row.names = FALSE) #salvamos o arquivo
-cvPospandemia<- read_csv("cvPospandemia.csv")
-cvPrepandemia <- read_csv("cvPrepandemia.csv")
+cvPospandemia<- read.csv("cvPospandemia.csv",sep = " ")
+cvPrepandemia <- read.csv("cvPrepandemia.csv",sep=" ")
 
 
 #Vamos fazer as predicoes para o proximo dia dos melhores modelos para antes de pandemia e depois da pandemia
