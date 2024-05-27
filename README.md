@@ -10,7 +10,7 @@ O repositório tem os seguintes arquivos:
 * Predict.csv são as previsões feitas diariamente por github actions
 * App.R é a app do shiny
 
-O Aplicativo Shiny pode ser executado no software R usando a função runGitHub() do pacote Shiny. O comando a executar é runGitHub("SeriesTemporaisUnicamp","JuanPabloMonDi").
+O Aplicativo Shiny pode ser executado no software R usando a função runGitHub() do pacote Shiny. O comando a executar é runGitHub("Serie-temporal-LATAM-Airlines","JuanPabloMonDi").
 
 
 
