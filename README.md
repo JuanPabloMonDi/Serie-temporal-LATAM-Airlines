@@ -13,17 +13,19 @@ O repositório tem os seguintes arquivos:
 O Aplicativo Shiny pode ser executado no software R usando a função runGitHub() do pacote Shiny. O comando a executar é runGitHub("SeriesTemporaisUnicamp","JuanPabloMonDi").
 
 
+
+> [!IMPORTANT]
+> É importante ressaltar que todas as informações e análises aqui apresentadas são estritamente para fins acadêmicos e não devem ser interpretadas como recomendações de investimento ou análise financeira. Da mesma forma, os códigos e modelos apresentados não buscam comercializar nem perjudicar à companhia aerea LATAM.
+
+
+
 ## Sobre as predições.
 
 De segundas a sextas, o código vai ser executado uma vez por dia às 23:30 (Hora Brasilia). O modelo gera uma predição sem levar em conta a ultima data da base de dados. A ideia é comparar esse valor com nossa predição.
 
 Por exemplo, o dia 23 de junho o modelo preverá o valor para o mesmo dia, utilizando os dados até o día 22 de junho.
 
-### Nota: 
-Nas predições algumas datas vão se repetir, a razão disso é pelos feriados do pais da empresa escolhida, nesse caso foram escolhidas as ações da aerolinea LATAM em Chile. 
+> [!NOTE]
+> Nas predições algumas datas vão se repetir, a razão disso é pelos feriados do pais da empresa escolhida, nesse caso foram escolhidas as ações da aerolinea LATAM em Chile. 
 
-Por exemplo, os dias 21 e 26 de junho foram feriados em Chile, portanto, o modelo não gerou predições para esses dias, mas forneceu uma nova predição para o ultimo dia que foi gerado um novo dato.
-
-
-> [!IMPORTANT]
-> É importante ressaltar que todas as informações e análises aqui apresentadas são estritamente para fins acadêmicos e não devem ser interpretadas como recomendações de investimento ou análise financeira. Da mesma forma, os códigos e modelos apresentados não buscam comercializar nem perjudicar à companhia aerea LATAM.
+>Por exemplo, os dias 21 e 26 de junho foram feriados em Chile, portanto, o modelo não gerou predições para esses dias, mas forneceu uma nova predição para o ultimo dia que foi gerado um novo dato.
