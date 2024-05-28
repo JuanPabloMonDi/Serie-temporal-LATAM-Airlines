@@ -10,7 +10,11 @@ O repositório tem os seguintes arquivos:
 * Predict.csv são as previsões feitas diariamente por github actions
 * App.R é a app do shiny
 
-O Aplicativo Shiny pode ser executado no software R usando a função runGitHub() do pacote Shiny. O comando a executar é runGitHub("Serie-temporal-LATAM-Airlines","JuanPabloMonDi").
+> [!TIP]
+> O Aplicativo Shiny pode ser executado no software R usando a função runGitHub() do pacote Shiny. O comando a executar é <br><br> 
+```R
+ runGitHub("Serie-temporal-LATAM-Airlines","JuanPabloMonDi")
+```
 
 
 
@@ -26,6 +30,4 @@ De segundas a sextas, o código vai ser executado uma vez por dia às 23:30 (Hor
 Por exemplo, o dia 23 de junho o modelo preverá o valor para o mesmo dia, utilizando os dados até o día 22 de junho.
 
 > [!NOTE]
-> Nas predições algumas datas vão se repetir, a razão disso é pelos feriados do pais da empresa escolhida, nesse caso foram escolhidas as ações da aerolinea LATAM em Chile. 
-
->Por exemplo, os dias 21 e 26 de junho foram feriados em Chile, portanto, o modelo não gerou predições para esses dias, mas forneceu uma nova predição para o ultimo dia que foi gerado um novo dato.
+> Nas predições algumas datas vão se repetir, a razão disso é pelos feriados do pais da empresa escolhida, nesse caso foram escolhidas as ações da aerolinea LATAM em Chile.  <br><br> Por exemplo, os dias 21 e 26 de junho foram feriados em Chile, portanto, o modelo não gerou predições para esses dias, mas forneceu uma nova predição para o ultimo dia que foi gerado um novo dato.
